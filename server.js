@@ -11,7 +11,8 @@ const res = require("express/lib/response");
 const register = require("./controllers/register");
 const signin = require("./controllers/signin");
 const profile = require("./controllers/profile");
-const image = require("./controllers/image");
+// const clarifai = require("./controllers/clarifai");
+// const image = require("./controllers/image");
 
 process.env.NODE_TLS_REJECT_UNAUTHORIZED = 0; 
 
@@ -43,7 +44,9 @@ app.get("/profile/:id", (req, res) => {
   profile.handleRegister(req, res, db);
 });
 
+
 app.post("/clarifai", async (req, res) => {
+  // clarifai.handleClarifaiApiCall(req, res);
   try {
     const response = await axios.post(
       "https://api.clarifai.com/v2/models/general-image-recognition/outputs",
@@ -61,13 +64,13 @@ app.post("/clarifai", async (req, res) => {
   }
 });
 
-app.put("/image", (req, res) => {
-  image.handleImage(req, res, db);
-});
+// app.put("/image", (req, res) => {
+//   image.handleImage(req, res, db);
+// });
 
-app.post("/imageurl", (req, res) => {
-  image.handleApiCall(req, res);
-});
+// app.post("/imageurl", (req, res) => {
+//   image.handleApiCall(req, res);
+// });
 
 const PORT = process.env.PORT;
 app.listen(PORT || 3000, ()=> { 
